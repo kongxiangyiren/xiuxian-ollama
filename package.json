@@ -1,0 +1,14 @@
+{
+  "name": "xiuxian-ollama",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "ollama create xiuxian -f xiuxian.Modelfile",
+    "dev": "ollama run xiuxian",
+    "del":"ollama rm xiuxian"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
