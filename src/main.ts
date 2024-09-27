@@ -57,7 +57,7 @@ async function main() {
       messages: message,
       stream: true
     });
-    console.log('修仙:');
+    console.log('\n修仙:');
 
     let msg = '';
     for await (const part of finalResponse) {
