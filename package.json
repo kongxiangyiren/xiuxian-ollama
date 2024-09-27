@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build:ollama": "ollama rm xiuxian && ollama create xiuxian -f xiuxian.Modelfile",
+    "build:ollama": "ollama create xiuxian -f xiuxian.Modelfile",
     "dev:ollama": "ollama run xiuxian",
     "dev":"ts-node src/main.ts",
     "del:ollama": "ollama rm xiuxian"
