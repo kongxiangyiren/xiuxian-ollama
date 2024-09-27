@@ -1,19 +1,19 @@
-import ollama from 'ollama';
+import ollama, { type Message } from 'ollama';
 import readline from 'readline';
+// import { availableFunctions, tools } from './tools/index';
 
-interface Message {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-  images?: Uint8Array[] | string[];
-}
+const model = 'xiuxian';
 
 // 改为终端输入
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+interface MX extends Message {
+  role: 'system' | 'user' | 'assistant' | 'tool';
+}
 
-let message: Message[] = [
+let message: MX[] = [
   // 初始化
   {
     role: 'system',
@@ -29,16 +29,38 @@ async function main() {
       role: 'user',
       content: question
     });
-    const response = await ollama.chat({
-      model: 'xiuxian',
-      // model: 'qwen2.5:latest',
+
+    // 调用插件
+
+    // const response = await ollama.chat({
+    //   model: model,
+    //   messages: message,
+    //   tools
+    // });
+
+    // // Process function calls made by the model
+    // if (response.message.tool_calls && response.message.tool_calls.length > 0) {
+    //   message.push(response.message as MX);
+    //   for (const tool of response.message.tool_calls) {
+    //     const functionToCall =
+    //       availableFunctions[tool.function.name as keyof typeof availableFunctions];
+    //     const functionResponse = functionToCall(tool.function.arguments as any);
+    //     // Add function response to the conversation
+    //     message.push({
+    //       role: 'tool',
+    //       content: functionResponse
+    //     });
+    //   }
+    // }
+    const finalResponse = await ollama.chat({
+      model,
       messages: message,
       stream: true
     });
     console.log('修仙:');
 
     let msg = '';
-    for await (const part of response) {
+    for await (const part of finalResponse) {
       msg += part.message.content;
       process.stdout.write(part.message.content);
     }
@@ -49,9 +71,8 @@ async function main() {
       role: 'assistant',
       content: msg
     });
-    // rl.close();
-    // 循环
-    main();
+
+    return main();
   });
 }
 

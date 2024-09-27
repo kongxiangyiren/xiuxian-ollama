@@ -6,7 +6,7 @@
   "scripts": {
     "build:ollama": "ollama create xiuxian -f xiuxian.Modelfile",
     "dev:ollama": "ollama run xiuxian",
-    "dev":"ts-node src/main.ts",
+    "dev": "ts-node src/main.ts",
     "del:ollama": "ollama rm xiuxian"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "dayjs": "^1.11.13",
     "express": "^4.21.0",
     "ollama": "^0.5.9"
   }
